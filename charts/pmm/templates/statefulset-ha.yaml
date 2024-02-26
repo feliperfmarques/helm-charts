@@ -13,6 +13,7 @@ kind: StatefulSet
 metadata:
   name: {{ include "pmm.fullname" $root }}
   labels:
+    app.kubernetes.io/name: {{ $serviceName }}
     {{- include "pmm.labelsHA" $root | nindent 4 }}
 spec:
   serviceName: {{ $serviceName }}
