@@ -30,7 +30,7 @@ spec:
         {{- include "pmm.podAnnotations" $root | nindent 8 }}
       labels:
         app.kubernetes.io/name: {{ $serviceName }}
-        {{- include "pmm.selectorLabels" $root | nindent 8 }}
+        {{- include "pmm.selectorLabelsHA" $root | nindent 8 }}
     spec:
       {{- with $root.Values.image.imagePullSecrets }}
       imagePullSecrets:
