@@ -42,11 +42,29 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
+{{- define "pmm.labelsHA" -}}
+helm.sh/chart: {{ include "pmm.chart" . }}
+{{ include "pmm.selectorLabelsHA" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
 {{/*
 Selector labels
 */}}
 {{- define "pmm.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "pmm.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/component: pmm-server
+app.kubernetes.io/part-of: percona-platform
+{{- if .Values.extraLabels }}
+{{ toYaml .Values.extraLabels }}
+{{- end }}
+{{- end }}
+
+{{- define "pmm.selectorLabelsHA" -}}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/component: pmm-server
 app.kubernetes.io/part-of: percona-platform

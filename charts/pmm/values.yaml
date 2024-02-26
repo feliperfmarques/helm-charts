@@ -127,25 +127,25 @@ service:
     ## @param service.ports[1].port http port number
     - port: 9094
       ## @param service.ports[1].targetPort target port to map for statefulset and ingress
-      targetPort: gf_ha_gossip
+      targetPort: gf-ha-gossip
       ## @param service.ports[1].protocol protocol for UDP
       protocol: UDP
       ## @param service.ports[1].name port name
-      name: gf_ha_gossip
+      name: gf-ha-gossip
     - port: 9096
       ## @param service.ports[1].targetPort target port to map for statefulset and ingress
-      targetPort: pmm_ha_gossip
+      targetPort: pmm-ha-gossip
       ## @param service.ports[1].protocol protocol for UDP
       protocol: UDP
       ## @param service.ports[1].name port name
-      name: pmm_ha_gossip
+      name: pmm-ha-gossip
     - port: 9097
       ## @param service.ports[1].targetPort target port to map for statefulset and ingress
-      targetPort: pmm_ha_raft
+      targetPort: pmm-ha-raft
       ## @param service.ports[1].protocol protocol for TCP
       protocol: TCP
       ## @param service.ports[1].name port name
-      name: pmm_ha_raft
+      name: pmm-ha-raft
 ## Ingress controller configuration
 ##
 ingress:

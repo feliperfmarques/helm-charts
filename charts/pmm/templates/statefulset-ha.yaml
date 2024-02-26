@@ -13,13 +13,14 @@ kind: StatefulSet
 metadata:
   name: {{ include "pmm.fullname" $root }}
   labels:
-    {{- include "pmm.labels" $root | nindent 4 }}
+    {{- include "pmm.labelsHA" $root | nindent 4 }}
 spec:
   serviceName: {{ $serviceName }}
   replicas: 1
   selector:
     matchLabels:
-      {{- include "pmm.selectorLabels" $root | nindent 6 }}
+      app.kubernetes.io/name: {{ $serviceName }}
+      {{- include "pmm.selectorLabelsHA" $root | nindent 6 }}
   updateStrategy:
     type: RollingUpdate
   template:
@@ -27,6 +28,7 @@ spec:
       annotations:
         {{- include "pmm.podAnnotations" $root | nindent 8 }}
       labels:
+        app.kubernetes.io/name: {{ $serviceName }}
         {{- include "pmm.selectorLabels" $root | nindent 8 }}
     spec:
       {{- with $root.Values.image.imagePullSecrets }}
@@ -114,11 +116,11 @@ spec:
               containerPort: 80
             - name: https
               containerPort: 443
-            - name: gf_ha_gossip
+            - name: gf-ha-gossip
               containerPort: 9094
-            - name: pmm_ha_gossip
+            - name: pmm-ha-gossip
               containerPort: 9096
-            - name: pmm_ha_raft
+            - name: pmm-ha-raft
               containerPort: 9097
           readinessProbe:
             httpGet:

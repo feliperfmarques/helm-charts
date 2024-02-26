@@ -14,7 +14,7 @@ kind: Service
 metadata:
   name: {{ $serviceName }}
   labels:
-    {{- include "pmm.labels" $root | nindent 4 }}
+    {{- include "pmm.labelsHA" $root | nindent 4 }}
   {{- with $root.Values.service.annotations }}
   annotations:
     {{- toYaml . | nindent 8 }}
@@ -30,7 +30,8 @@ spec:
     {{- toYaml . | nindent 8 }}
   {{- end }}
   selector:
-    {{- include "pmm.selectorLabels" $root | nindent 4 }}
+    app.kubernetes.io/name: {{ $serviceName }}
+    {{- include "pmm.selectorLabelsHA" $root | nindent 4 }}
 {{- if $root.Values.ingress.enabled }}
 ---
 apiVersion: v1
