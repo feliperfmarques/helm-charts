@@ -114,11 +114,11 @@ spec:
               containerPort: 80
             - name: https
               containerPort: 443
-            - name: pmm_grafana_ha_gossip_port
+            - name: gf_ha_gossip
               containerPort: 9094
-            - name: pmm_ha_gossip_port
+            - name: pmm_ha_gossip
               containerPort: 9096
-            - name: pmm_ha_raft_port
+            - name: pmm_ha_raft
               containerPort: 9097
           readinessProbe:
             httpGet:
